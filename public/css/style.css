@@ -107,7 +107,7 @@ a {
 
 .game-card img {
   max-width: 100%;
-  height: auto;
+  height: 200px;
   border-radius: 4px;
   margin: 10px 0;
 }

@@ -15,7 +15,7 @@
 
         <div>
             <label>Genre (select one):</label><br>
-            <input type="radio" name="genre" value="Action" <%= game.genre === 'Action' ? 'checked' : '' %> required>Action (Fast-paced gameplay)<br>
+            <input type="radio" name="genre" value="Action" <%= game.genre === 'action' ? 'checked' : '' %> required>Action (Fast-paced gameplay)<br>
             <input type="radio" name="genre" value="RPG" <%= game.genre === 'rpg' ? 'checked' : '' %>>RPG (Role-Playing Game)<br>
             <input type="radio" name="genre" value="Adventure" <%= game.genre === 'adventure' ? 'checked' : '' %>>Adventure<br>
             <input type="radio" name="genre" value="Strategy" <%= game.genre === 'strategy' ? 'checked' : '' %>>Strategy<br>

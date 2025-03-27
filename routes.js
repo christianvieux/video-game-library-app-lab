@@ -43,19 +43,26 @@ router.get("/games/platform/:platform/genre/:genre", async (req, res) => {
 
 // POST a new game
 router.post("/games", async (req, res) => {
-  const { title, genre, platform, rating, cover_url } =
-    await Game_Library.findByIdAndUpdate(
-      req.params.id,
-      Object.fromEntries(
-        Object.entries(req.body).map(([key, value]) => [
-          key.toLowerCase(),
-          key.toLowerCase().includes("title") ? value : value.toLowerCase(),
-        ])
-      )
+  try {
+    const formattedData = Object.fromEntries(
+      Object.entries(req.body).map(([key, value]) => [
+        key.toLowerCase(),
+        key.toLowerCase().includes("title")
+          ? value
+          : Array.isArray(value)
+          ? value.map((item) => item.toLowerCase())
+          : typeof value === "string"
+          ? value.toLowerCase()
+          : value,
+      ])
     );
-  await Game_Library.create({ title, genre, platform, rating, cover_url });
 
-  res.render("index.ejs");
+    console.log(formattedData);
+    await Game_Library.create(formattedData);
+    res.redirect("/games/platform/all");
+  } catch (err) {
+    res.redirect("/");
+  }
 });
 
 // GET edit page
@@ -67,15 +74,21 @@ router.get("/games/edit/:id", async (req, res) => {
 // PUT (edit) the existing game
 router.put("/games/:id", async (req, res) => {
   try {
-    await Game_Library.findByIdAndUpdate(
-      req.params.id,
-      Object.fromEntries(
-        Object.entries(req.body).map(([key, value]) => [
-          key.toLowerCase(),
-          key.toLowerCase().includes("title") ? value : value.toLowerCase(),
-        ])
-      )
+    const formattedData = Object.fromEntries(
+      Object.entries(req.body).map(([key, value]) => [
+        key.toLowerCase(),
+        key.toLowerCase().includes("title")
+          ? value
+          : Array.isArray(value)
+          ? value.map((item) => item.toLowerCase())
+          : typeof value === "string"
+          ? value.toLowerCase()
+          : value,
+      ])
     );
+    console.log(formattedData);
+
+    await Game_Library.findByIdAndUpdate(req.params.id, formattedData);
     res.redirect(`/games/platform/all`);
   } catch (err) {
     res.redirect("/");
