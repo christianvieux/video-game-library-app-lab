@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Genres</title>
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+    <h1><%= platform.charAt(0).toUpperCase() + platform.slice(1) %> Games</h1>
+
+<% if (games && games.length > 0) { %>
+    <div class="games-grid">
+        <% games.forEach(game => { %>
+            <%- include('../../../partials/gameCard', {game}) %>
+            <% console.log(game); %>
+        <% }); %>
+    </div>
+<% } else { %>
+    <p>No games found in this genre.</p>
+<% } %>
+
+<a class="back button" href="/games/platform/<%= platform %>">Back to <%= platform %> Games</a>
+</body>
+</html>

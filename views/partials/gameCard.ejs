@@ -1,0 +1,14 @@
+<div class="game-card">
+    <h3><%= game.title %></h3>
+    <p>Genre: <%= game.genre %></p>
+    <p>Platform: <%= game.platform %></p>
+    <img alt="Game Cover" src=<%= game.cover_url || "" %>></img>
+    <div class="game-card_buttons">
+        <a href="/games/edit/<%= game._id %>">
+            <button>Edit</button>
+        </a>
+        <form action="/games/<%= game._id %>?_method=DELETE" method="POST">
+            <button type="submit">Delete</button>
+        </form>
+    </div>
+</div>

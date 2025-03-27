@@ -1,0 +1,37 @@
+<!-- view/games/platforn/index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Games Platform</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <h1><%= platform.charAt(0).toUpperCase() + platform.slice(1) %> Games</h1>
+  <% if (games && games.length > 0) { %>
+  <div class="games-grid">
+    <% games.forEach(game => { %>
+    <%- include('../../partials/gameCard', {game}) %>
+    <% }); %>
+  </div>
+  <div class="genre-filters">
+    <h2>Filter Games by Genre:</h2>
+    <div class="genres_list">
+      <a href="/games/platform/<%= platform %>/genre/action" class="button">Action</a>
+      <a href="/games/platform/<%= platform %>/genre/adventure" class="button">Adventure</a>
+      <a href="/games/platform/<%= platform %>/genre/rpg" class="button">RPG</a>
+      <a href="/games/platform/<%= platform %>/genre/sports" class="button">Sports</a>
+      <a href="/games/platform/<%= platform %>/genre/strategy" class="button">Strategy</a>
+      <a href="/games/platform/<%= platform %>/genre/all" class="button">All Games</a>
+    </div>
+  </div>
+  <% } else { %>
+  <p>No games found for this platform.</p>
+  <% } %>
+  <a href="/" class="back button">Back to Home</a>
+</body>
+
+</html>
